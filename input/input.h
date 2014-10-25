@@ -1,8 +1,7 @@
-#ifndef __INPUT_H__
-#define __INPUT_H__
+#ifndef __TUXWETTER_H__
 
-//#include <config.h>
-#define _FILE_OFFSET_BITS 64
+#define __TUXWETTER_H__
+
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -11,21 +10,24 @@
 #include <string.h>
 #include <unistd.h>
 #include <linux/fb.h>
+#if HAVE_DVB_API_VERSION == 3
 #include <linux/input.h>
+#endif
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+#include <sys/socket.h>
 #include <sys/un.h>
-#include <stdint.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_CACHE_H
 #include FT_CACHE_SMALL_BITMAPS_H
 
-#define BUFSIZE 1024
+#define BUFSIZE 	4095
+
+#define MISS_FILE	"/var/tuxbox/config/tuxwetter/missing_translations.txt"
 
 enum {LEFT, CENTER, RIGHT};
-enum {SMALL, MED, BIG};
 
 FT_Error 		error;
 FT_Library		library;
@@ -103,62 +105,31 @@ int fb;
 
 //framebuffer stuff
 
-enum {
-	FILL,
-	GRID
-};
+enum {FILL, GRID};
 
-enum {
-	CMCST,
-	CMCS,
-	CMCT,
-	CMC,
-	CMCIT,
-	CMCI,
-	CMHT,
-	CMH,
-	WHITE,
-	BLUE1,
-	GTRANSP,
-	CMS,
-	ORANGE,
-	GREEN,
-	YELLOW,
-	RED,
-	COL_MENUCONTENT_PLUS_0,
-	COL_MENUCONTENT_PLUS_1,
-	COL_MENUCONTENT_PLUS_2,
-	COL_MENUCONTENT_PLUS_3,
-	COL_SHADOW_PLUS_0
-};
+enum {CMCST, CMCS, CMCT, CMC, CMCIT, CMCI, CMHT, CMH, WHITE, BLUE0, GTRANSP, CMS, ORANGE, GREEN, YELLOW, RED, CMCP0, CMCP1, CMCP2, CMCP3};
 #define TRANSP 0
-
-extern uint32_t *lfb, *lbb, *obb;
-extern uint32_t bgra[];
-extern int swidth;
 
 extern int FSIZE_BIG;
 extern int FSIZE_MED;
 extern int FSIZE_SMALL;
-
+extern int FSIZE_VSMALL;
 extern int TABULATOR;
 
-extern int OFFSET_MED;
-extern int OFFSET_SMALL;
-extern int OFFSET_MIN;
-
+extern unsigned char *lfb, *lbb;
+extern unsigned char *proxyadress, *proxyuserpwd;
 struct fb_fix_screeninfo fix_screeninfo;
 struct fb_var_screeninfo var_screeninfo;
+extern unsigned char rd[],gn[],bl[],tr[];
 
-int startx, starty, sx, ex, sy, ey;
+int startx, starty, sx, ex, sy, ey, debounce, rblock;
+extern unsigned sc[8], tc[8];
+extern int instance;
+int get_instance(void);
+void put_instance(int pval);
+int PaintWideString(int dy, const char *string, int sx, int sy, int maxwidth, int layout, int size, int color);
 
-extern char *butmsg[3];
-extern int buttons,selection;
-extern const char sc[8], tc[8];
-
-#ifndef FB_DEVICE
 #define FB_DEVICE	"/dev/fb/0"
-#endif
 
 #endif
 
