@@ -10,13 +10,13 @@
 #define FH_ERROR_FORMAT 2	/* file format error */
 #define FH_ERROR_MALLOC 3	/* error during malloc */
 
-int fh_php_trans(const char *name, int _sx, int _sy, int dy, int cs, int line, int highlite, int *cut, int *x, int *y, int plain, int plot)
+int fh_php_trans(const char *name, int sx, int sy, int dy, int cs, int line, int highlite, int *cut, int *x, int *y, int plain, int plot)
 {
-char tstr[BUFSIZE]={0},rstr[BUFSIZE]={0},*tptr=NULL,*xptr=NULL,cc,br3flag=0;
-int loop=1, j, first, aline=0, fx=_sx, fy=_sy, slen, deg=0;
+char tstr[BUFSIZE],rstr[BUFSIZE],*tptr,*xptr,cc,br3flag=0;
+int loop=1, j, first, aline=0, fx=sx, fy=sy, slen, deg=0;
 
-int wxw=ex-_sx-((preset)?scale2res(120):scale2res(30));		//box width
-int wyw=ey-_sy-((preset)?scale2res(60):scale2res(40));		//box height
+int wxw=ex-sx-((preset)?120:30);		//box width 
+int wyw=ey-sy-((preset)?60:40);		//box height
 
 FILE *fh;
 
@@ -25,7 +25,7 @@ FILE *fh;
 	first=(line==0);
 	*x=0;
 	*y=0;
-//	_sy+=dy;
+//	sy+=dy;
 	while((loop>0) && (fgets(tstr, sizeof(tstr), fh)))
 	{
 		tptr=tstr+strlen(tstr);
@@ -86,15 +86,15 @@ FILE *fh;
 											cc='&';
 										}
 										else {
-											cc=0xA4;  //Ã¤
+											cc='ä';
 										}
 										break;
-									case 'A': cc=0x84; break;
-									case 'o': cc=0xB6; break;
-									case 'O': cc=0x96; break;
-									case 'u': cc=0xBC; break;
-									case 'U': cc=0x9C; break;
-									case 's': cc=0x9F; break; // ÃŸ
+									case 'A': cc='Ä'; break;
+									case 'o': cc='ö'; break;
+									case 'O': cc='Ö'; break;
+									case 'u': cc='ü'; break;
+									case 'U': cc='Ü'; break;
+									case 's': cc='ß'; break;
 									case 'q':
 									case 'Q': cc='"'; break;
 									case 'l':
@@ -108,7 +108,6 @@ FILE *fh;
 								}
 								if(cc)
 								{
-									rstr[j++]=0xC3;
 									rstr[j++]=cc;
 								}
 								if((tptr=strchr(tptr,';'))==NULL)
@@ -124,31 +123,30 @@ FILE *fh;
 							}
 						}
 					}
-					if((loop>0) && (_sy<(fy+wyw/*420*/)))
+					if((loop>0) && (sy<(fy+wyw/*420*/)))
 					{
 						rstr[j]=0;
 						if(plot)
 						{
-
 							if(!br3flag)
 							{
-								RenderString(rstr, _sx, _sy, wxw/*619*/, LEFT, cs, (first && highlite)?GREEN:CMCT);
+								RenderString(rstr, sx, sy, wxw/*619*/, LEFT, cs, (first && highlite)?GREEN:CMCT);
 							}
 							else
 							{
-								RenderString(rstr, _sx, fx+scale2res(250), wxw/*619*/, CENTER, FSIZE_BIG, CMCT);
+								RenderString(rstr, sx, fx+250, wxw/*619*/, CENTER, FSIZE_BIG, CMCT);
 							}
 							if(strlen(rstr))
 							{
 								first=0;
 							}
-							_sy+=dy;
+							sy+=dy;
 						}
 						else
 						{
 							if(strlen(rstr))
 							{
-								slen=GetStringLen(_sx, rstr, FSIZE_MED);
+								slen=GetStringLen(sx, rstr, FSIZE_MED);
 								if(slen>*x)
 								{
 									*x=slen;
@@ -160,15 +158,15 @@ FILE *fh;
 				}
 				if(plot)
 				{
-					int ssx = ((preset)?scale2res(82):scale2res(25));
-					*cut=(_sy>=(fy+wyw/*420*/));
+					int ssy = ((preset)?80:25);
+					*cut=(sy>=(fy+wyw/*420*/));
 					if(line)
 					{
-						RenderString("<<", ssx, fy, _sx, LEFT, FSIZE_MED, CMHT);
+						RenderString("<<", ssy, fy, sx, LEFT, FSIZE_MED, CMHT);
 					}
 					if(*cut)
 					{
-						RenderString(">>", ssx, _sy-dy, _sx, LEFT, FSIZE_MED, CMHT);
+						RenderString(">>", ssy, sy-dy, sx, LEFT, FSIZE_MED, CMHT);
 					}
 				}
 			}
@@ -178,11 +176,11 @@ FILE *fh;
 	return(FH_ERROR_OK);
 }
 
-int fh_php_load(const char *name, int _sx, int _sy, int dy, int cs, int line, int highlite, int plain, int *cut)
+int fh_php_load(const char *name, int sx, int sy, int dy, int cs, int line, int highlite, int plain, int *cut)
 {
 	int dummy;
 	
-	return fh_php_trans(name, _sx, _sy, dy, cs, line, highlite, cut, &dummy, &dummy, plain, 1);
+	return fh_php_trans(name, sx, sy, dy, cs, line, highlite, cut, &dummy, &dummy, plain, 1);
 }
 
 

@@ -1,4 +1,7 @@
 /*
+ * $Id: pngw.h,v 1.1 2009/12/19 19:42:49 rhabarber1848 Exp $
+ *
+ * tuxwetter - d-box2 linux project
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,16 +22,7 @@
 #ifndef __PNGW_H__
 #define __PNGW_H__
 
-#ifdef __cplusplus
-extern "C"
-{
+int fh_png_load(const char *filename, unsigned char *buffer, int x, int y);
+int fh_png_getsize(const char *filename, int *x, int *y, int wanted_width, int wanted_height);
+
 #endif
-
-int png_load(const char *filename, unsigned char **buffer, int* xp, int* yp, int* bpp);
-int png_getsize(const char *filename, int *x, int *y);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif //  __PNGW_H__
