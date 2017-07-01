@@ -147,10 +147,15 @@ extern int FSIZE_BIG;
 extern int FSIZE_MED;
 extern int FSIZE_SMALL;
 extern int FSIZE_VSMALL;
+
 extern int TABULATOR;
 
+extern int OFFSET_MED;
+extern int OFFSET_SMALL;
+extern int OFFSET_MIN;
+
 extern uint32_t bgra[];
-extern int stride;
+extern int swidth;
 extern uint32_t *lfb, *lbb;
 
 extern char *proxyadress, *proxyuserpwd;
