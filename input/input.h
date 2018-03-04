@@ -1,7 +1,8 @@
-#ifndef __TUXWETTER_H__
+#ifndef __INPUT_H__
+#define __INPUT_H__
 
-#define __TUXWETTER_H__
-
+//#include <config.h>
+#define _FILE_OFFSET_BITS 64
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -10,12 +11,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <linux/fb.h>
-//#if HAVE_DVB_API_VERSION == 3
-//#include <linux/input.h>
-//#endif
+#include <linux/input.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
-#include <sys/socket.h>
 #include <sys/un.h>
 #include <stdint.h>
 
@@ -24,18 +22,17 @@
 #include FT_CACHE_H
 #include FT_CACHE_SMALL_BITMAPS_H
 
-#ifndef HAVE_DREAMBOX_HARDWARE
-#define CONFIGDIR	"/var/tuxbox/config/tuxwetter"
-#else
-#define	CONFIGDIR	"/var/bin/tuxwet"
+#ifndef FB_DEVICE
+#define FB_DEVICE	"/dev/fb/0"
 #endif
-#define MISS_FILE	CONFIGDIR "/missing_translations.txt"
+#ifndef FB_DEVICE_FALLBACK
+#define FB_DEVICE_FALLBACK	"/dev/fb0"
+#endif
 
-//#define WWEATHER
-#define BUFSIZE 	4095
-
+#define BUFSIZE 1024
 
 enum {LEFT, CENTER, RIGHT};
+enum {SMALL, MED, BIG};
 
 FT_Error 		error;
 FT_Library		library;
@@ -79,7 +76,7 @@ FT_Bool			use_kerning;
 #define KEY_HELP                138
 #define KEY_HOME                102
 #define KEY_EXIT				174
-#define KEY_MENU               	139
+#define KEY_SETUP               141
 #define KEY_PAGEUP              104
 #define KEY_PAGEDOWN            109
 #define KEY_OK           		0x160
@@ -128,25 +125,28 @@ enum {
 	CMHT,
 	CMH,
 	WHITE,
-	BLUE0,
+	BLUE1,
 	GTRANSP,
 	CMS,
 	ORANGE,
 	GREEN,
 	YELLOW,
 	RED,
-	CMCP0,
-	CMCP1,
-	CMCP2,
-	CMCP3,
-	CSP0
+	COL_MENUCONTENT_PLUS_0,
+	COL_MENUCONTENT_PLUS_1,
+	COL_MENUCONTENT_PLUS_2,
+	COL_MENUCONTENT_PLUS_3,
+	COL_SHADOW_PLUS_0
 };
 #define TRANSP 0
+
+extern uint32_t *lfb, *lbb, *obb;
+extern uint32_t bgra[];
+extern int swidth;
 
 extern int FSIZE_BIG;
 extern int FSIZE_MED;
 extern int FSIZE_SMALL;
-extern int FSIZE_VSMALL;
 
 extern int TABULATOR;
 
@@ -154,21 +154,14 @@ extern int OFFSET_MED;
 extern int OFFSET_SMALL;
 extern int OFFSET_MIN;
 
-extern uint32_t bgra[];
-extern int swidth;
-extern uint32_t *lfb, *lbb;
-
-extern char *proxyadress, *proxyuserpwd;
 struct fb_fix_screeninfo fix_screeninfo;
 struct fb_var_screeninfo var_screeninfo;
 
-int startx, starty, sx, ex, sy, ey, preset;
-extern int instance;
-int get_instance(void);
-void put_instance(int pval);
-int PaintWideString(int dy, const char *string, int sx, int sy, int maxwidth, int layout, int size, int color);
+int startx, starty, sx, ex, sy, ey;
 
-#define FB_DEVICE	"/dev/fb/0"
+extern char *butmsg[3];
+extern int buttons,selection;
+extern const char sc[8], tc[8];
 
 #endif
 

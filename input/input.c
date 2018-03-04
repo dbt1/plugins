@@ -21,6 +21,7 @@
 
 #define NCF_FILE CONFIGDIR "/neutrino.conf"
 
+//freetype stuff
 char FONT[128] = FONTDIR "/neutrino.ttf";
 // if font is not in usual place, we look here:
 #define FONT2 FONTDIR "/pakenham.ttf"
