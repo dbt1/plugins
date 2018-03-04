@@ -25,7 +25,7 @@
 */
 
 #include "tuxcom.h"
-#include "rc_device.h"
+#include <rc_device.h>
 
 #define DEFAULT_XRES 1280
 #define DEFAULT_YRES 720
@@ -902,9 +902,9 @@ int main()
 	}
 
 	/* open Remote Control */
-	rc = open(RC_DEVICE, O_RDONLY);
+	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
 	if(rc == -1)
-		rc = open(RC_DEVICE_FALLBACK, O_RDONLY);
+		rc = open(RC_DEVICE_FALLBACK, O_RDONLY | O_CLOEXEC);
 	if(rc == -1) {
 		perror("TuxCom <open remote control>");
 		exit(1);
