@@ -352,8 +352,8 @@ int WeekNumber( int y, int m, int d );
 int LeapYear(int year);
 
 //----------------------------------------------------
-// freetype stuff
 
+// freetype stuff
 #define FONT FONTDIR "/neutrino.ttf"
 // if font is not in usual place, we look here:
 #define FONT2 FONTDIR "/pakenham.ttf"

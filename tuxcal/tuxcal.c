@@ -19,8 +19,12 @@
  ******************************************************************************/
 // lots of code is from the tuxmail-project
 
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <fcntl.h>
+
 #include "tuxcal.h"
-#include "rc_device.h"
+#include <rc_device.h>
 //#include <stdio.h>
 
 void read_neutrino_osd_conf(int *Ex,int *Sx,int *Ey, int *Sy)
@@ -2686,9 +2690,9 @@ int main ( void )
 	}
 
 	/* open Remote Control */
-	rc = open(RC_DEVICE, O_RDONLY);
-	if(rc == -1)
-		rc = open(RC_DEVICE_FALLBACK, O_RDONLY);
+	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
+	if (rc == -1)
+		rc = open(RC_DEVICE_FALLBACK, O_RDONLY | O_CLOEXEC);
 	if ( rc == -1 )
 	{
 		perror ( "TuxCal <open remote control>" );
