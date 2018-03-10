@@ -44,19 +44,19 @@
 #include "gifdecomp.h"
 #include "icons.h"
 
-#define P_VERSION "4.11"
+#define P_VERSION "4.12"
 #define S_VERSION ""
 
-char CONVERT_LIST[]=	TUXWETTERDIR "/convert.list";
-#define CFG_FILE	TUXWETTERDIR "/tuxwetter.conf"
-#define MCF_FILE	TUXWETTERDIR "/tuxwetter.mcfg"
-//#define TIME_FILE	TUXWETTERDIR "/swisstime"
-#define START_PIC	TUXWETTERDIR "/startbild.jpg"
-#define TUX_ICON	TUXWETTERDIR "/tuxwetter.png"
 
-#define NCF_FILE	CONFIGDIR "/neutrino.conf"
-#define ECF_FILE	CONFIGDIR "/enigma/config"
-#define BMP_FILE 	"tuxwettr.bmp"
+char CONVERT_LIST[]= CFG_TUXWET "/convert.list";
+#define CFG_FILE     CFG_TUXWET "/tuxwetter.conf"
+#define MCF_FILE     CFG_TUXWET "/tuxwetter.mcfg"
+//#define TIME_FILE    CFG_TUXWET "/swisstime"
+#define START_PIC	 CFG_TUXWET "/startbild.jpg"
+#define TUX_ICON     CFG_TUXWET "/tuxwetter.png"
+#define NCF_FILE     CONFIGDIR "/neutrino.conf"
+#define ECF_FILE	 CONFIGDIR "/enigma/config"
+//#define BMP_FILE 	"tuxwettr.bmp"
 #define JPG_FILE	"/tmp/picture.jpg"
 #define GIF_FILE	"/tmp/picture.gif"
 #define GIF_MFILE	"/tmp/gpic"
@@ -78,17 +78,16 @@ void blit(void) {
 
 // Forward defines
 int pic_on_data(char *name, int xstart, int ystart, int xsize, int ysize, int wait, int single, int center, int rahmen);
-char par[32]="1005530704", key[32]="a9c95f7636ad307b";
+char par[32]={0}, key[32]={0};
 void TrimString(char *strg);
 
 // Color table stuff
 static const char menucoltxt[][25]={"Content_Selected_Text","Content_Selected","Content_Text","Content","Content_inactive_Text","Content_inactive","Head_Text","Head"};
 
-
-//freetype stuff
-char FONT[128]="/share/fonts/neutrino.ttf";
+char FONT[128] = FONTDIR "/neutrino.ttf";
 // if font is not in usual place, we look here:
-#define FONT2 "/share/fonts/pakenham.ttf"
+#define FONT2 FONTDIR "/pakenham.ttf"
+
 
 //					    CMCST,  CMCS,   CMCT,   CMC,    CMCIT,  CMCI,   CMHT,   CMH
 //					    WHITE,  BLUE0,  TRANSP, CMS,    ORANGE, GREEN,  YELLOW, RED
@@ -1316,11 +1315,6 @@ char tun[2]="C",sun[5]="km/h",dun[6]="km",pun[5]="hPa",iun[7]="mm", cun[20];
 
 	//recalculate wigth
 	gicw += ((gicw%10) > OFFSET_SMALL ? OFFSET_MED-(gicw%10) : -(gicw%10)); //rounded table data width, needing for smoothed curves
-	gxw=gicw*nc;
-	gxs=(wxw-gxw)/2;
-
-	//recalculate wigth
-	gicw += ((gicw%10) > 5 ? 10-(gicw%10) : -(gicw%10)); //rounded table data width, needing for smoothed curves
 	gxw=gicw*nc;
 	gxs=(wxw-gxw)/2;
 
@@ -2980,7 +2974,9 @@ PLISTENTRY pl=&epl;
 	}
 
 	//init framebuffer
-	fb = open(FB_DEVICE, O_RDWR);
+	fb=open(FB_DEVICE, O_RDWR);
+	if (fb < 0)
+		fb=open(FB_DEVICE_FALLBACK, O_RDWR);
 	if(fb == -1)
 	{
 		perror("tuxwetter <open framebuffer device>");
