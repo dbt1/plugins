@@ -1,5 +1,5 @@
-#ifndef __INPUT_H__
-#define __INPUT_H__
+#ifndef __MSGBOX_H__
+#define __MSGBOX_H__
 
 //#include <config.h>
 #define _FILE_OFFSET_BITS 64
@@ -11,9 +11,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <linux/fb.h>
+#if HAVE_DVB_API_VERSION == 3
 #include <linux/input.h>
+#endif
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+#include <sys/socket.h>
 #include <sys/un.h>
 #include <stdint.h>
 
@@ -29,10 +32,10 @@
 #define FB_DEVICE_FALLBACK	"/dev/fb0"
 #endif
 
-#define BUFSIZE 1024
+#define MAX_BUTTONS 24
+#define BUFSIZE 	4095
 
 enum {LEFT, CENTER, RIGHT};
-enum {SMALL, MED, BIG};
 
 FT_Error 		error;
 FT_Library		library;
@@ -79,11 +82,11 @@ FT_Bool			use_kerning;
 #define KEY_SETUP               141
 #define KEY_PAGEUP              104
 #define KEY_PAGEDOWN            109
-#define KEY_OK           		0x160
-#define KEY_RED          		0x18e
-#define KEY_GREEN        		0x18f
-#define KEY_YELLOW       		0x190
-#define KEY_BLUE         		0x191
+#define KEY_OK           		0x160         
+#define KEY_RED          		0x18e         
+#define KEY_GREEN        		0x18f         
+#define KEY_YELLOW       		0x190         
+#define KEY_BLUE         		0x191         
 
 #define KEY_TVR					0x179
 #define KEY_TTX					0x184
@@ -105,11 +108,9 @@ FT_Bool			use_kerning;
 #define KEY_PLAY				0x0CF
 
 //devs
-
 int fb;
 
 //framebuffer stuff
-
 enum {
 	FILL,
 	GRID
@@ -138,11 +139,8 @@ enum {
 	COL_MENUCONTENT_PLUS_3,
 	COL_SHADOW_PLUS_0
 };
-#define TRANSP 0
 
-extern uint32_t *lfb, *lbb, *obb;
-extern uint32_t bgra[];
-extern int swidth;
+#define TRANSP 0
 
 extern int FSIZE_BIG;
 extern int FSIZE_MED;
@@ -154,14 +152,21 @@ extern int OFFSET_MED;
 extern int OFFSET_SMALL;
 extern int OFFSET_MIN;
 
+extern uint32_t *lfb, *lbb, *obb, *hbb;
+
 struct fb_fix_screeninfo fix_screeninfo;
 struct fb_var_screeninfo var_screeninfo;
+extern uint32_t bgra[];
+extern int swidth;
 
 int startx, starty, sx, ex, sy, ey;
+//int debounce, rblock;
 
-extern char *butmsg[3];
+extern char *butmsg[MAX_BUTTONS];
 extern int buttons,selection;
-extern const char sc[8], tc[8];
+extern int instance;
+int get_instance(void);
+void put_instance(int pval);
 
 #endif
 
