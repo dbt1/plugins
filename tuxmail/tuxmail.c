@@ -3723,9 +3723,10 @@ int main ( void )
 		fb=open(FB_DEVICE_FALLBACK, O_RDWR);
 
 	/* open Remote Control */
-	rc = open(RC_DEVICE, O_RDONLY);
+	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
 	if(rc == -1)
-		rc = open(RC_DEVICE_FALLBACK, O_RDONLY);
+		rc = open(RC_DEVICE_FALLBACK, O_RDONLY | O_CLOEXEC);
+
 	if(rc == -1) {
 		perror("TuxMail <open remote control>");
 		exit(1);
