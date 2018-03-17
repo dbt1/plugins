@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <locale.h>
 #include <fcntl.h>
+#include <stdio.h>
 #include <ctype.h>
 #include <time.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@
 #include <linux/input.h>
 
 #include "io.h"
+#include <rc_device.h>
 
 extern int instance;
 struct input_event ev;
@@ -26,8 +28,10 @@ int InitRC(void)
 {
 	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
 	if(rc == -1)
+		rc = open(RC_DEVICE_FALLBACK, O_RDONLY | O_CLOEXEC);
+	if(rc == -1)
 	{
-		perror("msgbox <open remote control>");
+		perror("logomask <open remote control>");
 		exit(1);
 	}
 	fcntl(rc, F_SETFL, O_NONBLOCK | O_SYNC);
