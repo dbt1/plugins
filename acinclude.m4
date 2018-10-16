@@ -136,9 +136,6 @@ TUXBOX_APPS_DIRECTORY_ONE(datadir, DATADIR, datadir, /share, /tuxbox,
 TUXBOX_APPS_DIRECTORY_ONE(fontdir, FONTDIR, datadir, /share, /fonts,
 	[--with-fontdir=PATH], [where to find fonts])
 
-TUXBOX_APPS_DIRECTORY_ONE(fontdir_var, FONTDIR_VAR, localstatedir, /var, /tuxbox/fonts,
-	[--with-fontdir_var=PATH], [where to find fonts in /var])
-
 TUXBOX_APPS_DIRECTORY_ONE(gamesdir, GAMESDIR, localstatedir, /var, /tuxbox/games,
 	[--with-gamesdir=PATH], [where to find games])
 
@@ -156,43 +153,12 @@ TUXBOX_APPS_DIRECTORY_ONE(plugindir_mnt, PLUGINDIR_MNT, mntdir, /mnt, /plugins,
 
 TUXBOX_APPS_DIRECTORY_ONE(luaplugindir, LUAPLUGINDIR, libdir, /lib, /tuxbox/luaplugins,
 	[--with-luaplugindir=PATH], [where to find Lua plugins])
-
-TUXBOX_APPS_DIRECTORY_ONE(webradiodir, WEBRADIODIR, datadir, /share, /tuxbox/neutrino/webradio,
-	[--with-webradiodir=PATH], [where to find webradio content])
-
-TUXBOX_APPS_DIRECTORY_ONE(webradiodir_var, WEBRADIODIR_VAR, localstatedir, /var, /tuxbox/webradio,
-	[--with-webradiodir_var=PATH], [where to find webradio content in /var])
-
-TUXBOX_APPS_DIRECTORY_ONE(webtvdir, WEBTVDIR, datadir, /share, /tuxbox/neutrino/webtv,
-	[--with-webtvdir=PATH], [where to find webtv content])
-
-TUXBOX_APPS_DIRECTORY_ONE(webtvdir_var, WEBTVDIR_VAR, localstatedir, /var, /tuxbox/webtv,
-	[--with-webtvdir_var=PATH], [where to find webtv content in /var])
-
-TUXBOX_APPS_DIRECTORY_ONE(localedir, LOCALEDIR,datadir, /share, /tuxbox/neutrino/locale,
-	[--with-localedir=PATH], [where to find locale])
-
-TUXBOX_APPS_DIRECTORY_ONE(localedir_var, LOCALEDIR_VAR, localstatedir, /var, /tuxbox/locale,
-	[--with-localedir_var=PATH], [where to find locale in /var])
-
-TUXBOX_APPS_DIRECTORY_ONE(themesdir, THEMESDIR, datadir, /share, /tuxbox/neutrino/themes,
-	[--with-themesdir=PATH], [where to find themes])
-
-TUXBOX_APPS_DIRECTORY_ONE(themesdir_var, THEMESDIR_VAR, localstatedir, /var, /tuxbox/themes,
-	[--with-themesdir_var=PATH], [where to find themes in /var])
-
-TUXBOX_APPS_DIRECTORY_ONE(iconsdir, ICONSDIR, datadir, /share, /tuxbox/neutrino/icons,
-	[--with-iconsdir=PATH], [where to find icons])
-
-TUXBOX_APPS_DIRECTORY_ONE(iconsdir_var, ICONSDIR_VAR, localstatedir, /var, /tuxbox/icons,
-	[--with-iconsdir_var=PATH], [where to find icons in /var])
 ])
 
 dnl automake <= 1.6 needs this specifications
 AC_SUBST(CONFIGDIR)
 AC_SUBST(DATADIR)
 AC_SUBST(FONTDIR)
-AC_SUBST(FONTDIR_VAR)
 AC_SUBST(GAMESDIR)
 AC_SUBST(LIBDIR)
 AC_SUBST(MNTDIR)
@@ -200,16 +166,6 @@ AC_SUBST(PLUGINDIR)
 AC_SUBST(PLUGINDIR_VAR)
 AC_SUBST(PLUGINDIR_MNT)
 AC_SUBST(LUAPLUGINDIR)
-AC_SUBST(WEBRADIODIR)
-AC_SUBST(WEBRADIODIR_VAR)
-AC_SUBST(WEBTVDIR)
-AC_SUBST(WEBTVDIR_VAR)
-AC_SUBST(LOCALEDIR)
-AC_SUBST(LOCALEDIR_VAR)
-AC_SUBST(THEMESDIR)
-AC_SUBST(THEMESDIR_VAR)
-AC_SUBST(ICONSDIR)
-AC_SUBST(ICONSDIR_VAR)
 dnl end workaround
 
 AC_DEFUN([_TUXBOX_APPS_LIB_CONFIG], [
@@ -292,6 +248,58 @@ AC_ARG_WITH(boxtype,
 		coolstream|generic|armbox)
 			BOXTYPE="$withval"
 		;;
+		spark|spark7162)
+			BOXTYPE="spark"
+			BOXMODEL="$withval"
+		;;
+		dm*)
+			BOXTYPE="dreambox"
+			BOXMODEL="$withval"
+		;;
+		ufs*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		atevio*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		fortis*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		octagon*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		hs7*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		dp*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		cuberevo*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		ipbox*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		arivalink200)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		tf*)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
+		hl101)
+			BOXTYPE="duckbox"
+			BOXMODEL="$withval"
+		;;
 		vusolo4k)
 			BOXTYPE="armbox"
 			BOXMODEL="$withval"
@@ -308,7 +316,9 @@ AC_ARG_WITH(boxtype,
 
 AC_ARG_WITH(boxmodel,
 	AS_HELP_STRING([--with-boxmodel], [valid for coolstream: hd1, hd2])
-AS_HELP_STRING([], [valid for armbox: hd51, vusolo4k])
+AS_HELP_STRING([], [valid for duckbox: ufs910, ufs912, ufs913, ufs922, atevio7500, fortis_hdbox, octagon1008, hs7110, hs7810a, hs7119, hs7819, dp7000, cuberevo, cuberevo_mini, cuberevo_mini2, cuberevo_250hd, cuberevo_2000hd, cuberevo_3000hd, ipbox9900, ipbox99, ipbox55, arivalink200, tf7700, hl101])
+AS_HELP_STRING([], [valid for spark: spark, spark7162])
+AS_HELP_STRING([], [valid for armbox: hd51])
 AS_HELP_STRING([], [valid for generic: raspi]),
 	[case "${withval}" in
 		hd1|hd2)
@@ -326,6 +336,20 @@ AS_HELP_STRING([], [valid for generic: raspi]),
 				if test "$withval" = "apollo"; then
 					BOXMODEL="hd2"
 				fi
+			else
+				AC_MSG_ERROR([unknown model $withval for boxtype $BOXTYPE])
+			fi
+		;;
+		ufs910|ufs912|ufs913|ufs922|atevio7500|fortis_hdbox|octagon1008|hs7110|hs7810a|hs7119|hs7819|dp7000|cuberevo|cuberevo_mini|cuberevo_mini2|cuberevo_250hd|cuberevo_2000hd|cuberevo_3000hd|ipbox9900|ipbox99|ipbox55|arivalink200|tf7700|hl101)
+			if test "$BOXTYPE" = "duckbox"; then
+				BOXMODEL="$withval"
+			else
+				AC_MSG_ERROR([unknown model $withval for boxtype $BOXTYPE])
+			fi
+		;;
+		spark|spark7162)
+			if test "$BOXTYPE" = "spark"; then
+				BOXMODEL="$withval"
 			else
 				AC_MSG_ERROR([unknown model $withval for boxtype $BOXTYPE])
 			fi
