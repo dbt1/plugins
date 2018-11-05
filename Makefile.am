@@ -1,30 +1,37 @@
-AUTOMAKE_OPTIONS = gnu
+AM_CPPFLAGS =  \
+	@FREETYPE_CFLAGS@ \
+	-I$(top_srcdir)/include
 
-SUBDIRS = \
-	cooliTSclimax \
-	FritzCallMonitor \
-	FritzInfoMonitor \
-	getrc \
-	input \
-	msgbox \
-	logomask \
-	satfind \
-	shellexec \
-	tuxcal \
-	tuxcom \
-	tuxmail \
-	tuxwetter \
-	vinfo
+bin_PROGRAMS = shellexec
 
-SUBDIRS += \
-	scripts-lua/plugins/ard_mediathek \
-	scripts-lua/plugins/epgfilter \
-	scripts-lua/plugins/EPGscan \
-	scripts-lua/plugins/favorites2bin \
-	scripts-lua/plugins/LocalTV \
-	scripts-lua/plugins/mtv \
-	scripts-lua/plugins/netzkino \
-	scripts-lua/plugins/openvpn-setup \
-	scripts-lua/plugins/stb-startup \
-	scripts-lua/plugins/userbouquets
+shellexec_LDADD = \
+	@FREETYPE_LIBS@
+
+shellexec_SOURCES = \
+ shellexec.c \
+ io.c \
+ text.c \
+ gfx.c \
+ fb_display.c \
+ resize.c \
+ pngw.cpp \
+ png_helper.cpp
+
+noinst_LTLIBRARIES = shellexec.la
+
+shellexec_la_LDFLAGS = -rpath $(PLUGINDIR) -module -avoid-version
+
+shellexec_la_SOURCES = \
+	starter.c
+
+install-exec-local:
+	install -d $(DESTDIR)$(PLUGINDIR)
+	install -d $(DESTDIR)$(CONFIGDIR)
+	$(LIBTOOL) --mode=install install shellexec.la $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec.cfg $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec_hint.png $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec.conf $(DESTDIR)$(CONFIGDIR)
+	install -d $(DESTDIR)$(CONFIGDIR)/flexinc
+	rm -f $(DESTDIR)$(CONFIGDIR)/flexinc/plugin_config.mnu
+	touch $(DESTDIR)$(CONFIGDIR)/flexinc/plugin_config.mnu
 
