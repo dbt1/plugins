@@ -31,6 +31,9 @@ DRIFTING SNOW|Schneetreiben
 DRIFTING SNOW AND WINDY|Schneetreiben und stürmisch
 DRIZZLE|Nieselregen
 DRIZZLE AND WINDY|Nieselregen und stürmisch
+E|Ost
+ENE|OstNordOst
+ESE|OstSüdOst
 EXTREME|extrem stark
 FAIR|heiter
 FAIR AND WINDY|Heiter und windig
@@ -107,9 +110,14 @@ MOSTLY CLOUDY / WIND|überwiegend bewölkt, stürmisch
 MOSTLY CLOUDY|überwiegend bewölkt
 MOSTLY SUNNY|überwiegend sonnig
 MOSTLY|überwiegend
+N|Nord
 N/A| 
+NE|NordOst
 NEW MOON|Neumond
 NEW|Neumond
+NNE|NordNordOst
+NNW|NordNordWest
+NW|NordWest
 OVERCAST|bedeckt
 PARTLY|teils
 PARTLY CLOUDY|teils wolkig
@@ -157,6 +165,7 @@ RAIN SHOWER|Regenschauer
 RAIN SHOWER AND WINDY|Regenschauer, stürmisch
 RAIN TO SNOW|Regen, in Schnee übergehend
 RISING|steigend
+S|Süd
 SATURDAY|Samstag
 SCATTERED SHOWERS / WIND|vereinzelt Schauer, stürmisch
 SCATTERED SHOWERS|vereinzelt Schauer
@@ -164,6 +173,7 @@ SCATTERED SNOW SHOWERS|vereinzelt Schneeschauer
 SCATTERED SNOW SHOWERS / WIND|vereinzelt Schneeschauer, stürmisch
 SCATTERED T-STORMS|vereinzelte Gewitter
 SCATTERED|vereinzelt
+SE|SüdOst
 SHOWER|Schauer
 SHOWERS / WIND|Schauer, stürmisch
 SHOWERS EARLY|anfangs Schauer
@@ -182,9 +192,12 @@ SNOW SHOWERS / WIND LATE|Schneeschauer, später stürmisch
 SNOW SHOWER / WIND|Schneeschauer, stürmisch
 SNOW TO WINTRY MIX|Schnee, später Schneeregen
 SNOW / WIND|Schnee / Wind
+SSE|SüdSüdOst
+SSW|SüdSüdWest
 STEADY|beständig
 SUNDAY|Sonntag
 SUNNY|sonnig
+SW|SüdWest
 THE|der
 THIRD QUARTER|abnehmender Halbmond
 THUNDER|Gewitter
@@ -205,6 +218,7 @@ UNLIMITED|unbegrenzt
 UNKNOWN PRECIP|Niederschlag
 VAR|versch. Richtungen
 VERY HIGH|Sehr hoch
+W|West
 WANING CRESCENT|abnehmende Sichel
 WANING GIBBOUS|abnehmender 3/4 Mond
 WANING HALF, LAST QUARTER|abnehmender Viertelmond
@@ -214,25 +228,8 @@ WAXING HALF, FIRST QUARTER|zunehmender Viertelmond
 WEDNESDAY|Mittwoch
 WINTRY MIX|Schneeregen
 WINTRY MIX / WIND|Schneeregen, stürmisch
-
-# Cardinal Directions
-
-N|
-NNO|
-NO|
-NNW|
-NW
-O|
-ONO|
-OSO|
-S|
-SO|
-SSO|
-SSW|
-SW|
-W|
-WNW|
-WSW|
+WNW|WestNordWest
+WSW|WestSüdWest
 
 # Lokalisierung der Bildschirmanzeige
 
@@ -290,12 +287,10 @@ Luftfeuchtigkeit:|
 Taupunkt:|
 Luftdruck:|
 Wind:|
-Windböen:|
-Windstill|
-Richtung|
+windstill|
+von|
 mit|
-bis zu|
-Vollmond|
+sichtbar|
 Sonnenaufgang:|
 Sonnenuntergang:|
 Bewölkung:|
@@ -303,7 +298,6 @@ Mondphase:|
 Fernsicht:|
 Niederschlag:|
 UV-Index:|
-Ozon:|
 Regenrisiko:|
 Heute|
 Wochentrend|
@@ -337,7 +331,7 @@ Formatfehler der URL in der tuxwetter.conf|
 Wochentrend anzeigen|
 Höchstwerte|
 Tiefstwerte|
-Trend für die kommenden|
+Trend für die kommende Woche|
 Monday|Montag
 Tuesday|Dienstag
 Wednesday|Mittwoch
