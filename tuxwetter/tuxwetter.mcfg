@@ -4,7 +4,7 @@ Metric=1
 InetConnection=DSL
 ConnectTimeout=5
 # API-Key bei darksky.net	Bei darksky.net wird der LicenseKey als API-Key verwendet
-LicenseKey=4cf30427c97b3bc5
+LicenseKey=
 # SplashScreen=1/0			Startbildschirm anzeigen / nicht anzeigen
 SplashScreen=0
 # ShowIcons=1/0				Wetter-Icons für Textanzeige downloaden / nicht downloaden

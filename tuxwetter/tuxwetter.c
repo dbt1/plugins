@@ -40,13 +40,13 @@
 #include "pngw.h"
 #include "gif.h"
 #include "fb_display.h"
-#include <fb_device.h>
 #include "resize.h"
 #include "gifdecomp.h"
 #include "icons.h"
 
-#define P_VERSION "4.12"
+#define P_VERSION "4.13"
 #define S_VERSION ""
+
 
 char CONVERT_LIST[]= CFG_TUXWET "/convert.list";
 #define CFG_FILE     CFG_TUXWET "/tuxwetter.conf"
@@ -68,7 +68,7 @@ char CONVERT_LIST[]= CFG_TUXWET "/convert.list";
 static char TCF_FILE[128]="";
 
 #define LIST_STEP 	10
-#define MAX_FUNCS   2+7
+#define MAX_FUNCS   2+10
 #define LCD_CPL 	12
 #define LCD_RDIST 	10
 
@@ -77,16 +77,13 @@ void blit(void) {
 }
 
 // Forward defines
-int pic_on_data(char *name, int xstart, int ystart, int xsize, int ysize, int wait, int single, int center, int rahmen);
 int png_on_data(char *name, int xstart, int ystart, int xsize, int ysize, int wait, int single, int center, int rahmen);
-char par[32]="1005530704", key[64]="a9c95f7636ad307b";
+char par[32]={0}, key[64]={0};
 void TrimString(char *strg);
 
 // Color table stuff
 static const char menucoltxt[][25]={"Content_Selected_Text","Content_Selected","Content_Text","Content","Content_inactive_Text","Content_inactive","Head_Text","Head"};
 
-
-//freetype stuff
 char FONT[128] = FONTDIR "/neutrino.ttf";
 // if font is not in usual place, we look here:
 #define FONT2 FONTDIR "/pakenham.ttf"
@@ -1316,7 +1313,7 @@ time_t atime;
 struct tm *sltime;
 char tun[2]="C",sun[5]="km/h",dun[6]="km",pun[5]="hPa",iun[7]="mm", cun[20];
 
-	//recalculate width
+	//recalculate wigth
 	gicw += ((gicw%10) > OFFSET_SMALL ? OFFSET_MED-(gicw%10) : -(gicw%10)); //rounded table data width, needing for smoothed curves
 	gxw=gicw*nc;
 	gxs=(wxw-gxw)/2;
@@ -2039,12 +2036,11 @@ char tun[2]="C",sun[5]="km/h",dun[6]="km",pun[5]="hPa",iun[7]="mm", cun[20];
 				else
 				{
 #ifdef WWEATHER
-					prs_get_timeWday(ix-1,PRE_DAY,tstr);
+					prs_get_val(ix-1,PRE_DAY,0,vstr);
 #else
-					prs_get_day(ix-1, tstr, metric);
+					prs_get_day(ix-1, vstr, metric);
 #endif
 				}
-				sprintf(vstr,"%s",prs_translate(tstr,CONVERT_LIST));
 				sprintf(rstr,"%s %s",prs_translate("Vorschau für",CONVERT_LIST),vstr);
 				RenderString(rstr, wsx, wsy+4*OFFSET_MED, wxw, CENTER, FSIZE_BIG, CMHT);
 
