@@ -292,6 +292,18 @@ function astra_nl_cfg(k, v, str)
 	write_cfg(k, v, "23.5E")
 end
 
+function astra_gb_cfg(k, v, str) 
+	write_cfg(k, v, "28.2E")
+end
+
+function badr_cfg(k, v, str) 
+	write_cfg(k, v, "26.0E")
+end
+
+function astra_nl_cfg(k, v, str) 
+	write_cfg(k, v, "23.5E")
+end
+
 function astra_cfg(k, v, str)
 	write_cfg(k, v, "19.2E")
 end
