@@ -29,7 +29,7 @@ configdir = $(CONFIGDIR)
 config_DATA = \
 	shellexec.conf
 
-flexdir = $(DATADIR)/neutrino/flex
+flexdir = $(DESTDIR)/share/tuxbox/neutrino/flex
 
 flex_DATA = \
 	flex_plugins.conf \
@@ -40,12 +40,4 @@ install-data-hook:
 		mv -f shellexec.so 00_shellexec.so; \
 		mv -f shellexec.cfg 00_shellexec.cfg; \
 		mv -f shellexec_hint.png 00_shellexec_hint.png
-	ln -sf $(PLUGINDIR)/00_shellexec.so $(DESTDIR)$(bindir)/shellexec
-
-uninstall-hook:
-	set -e; cd $(DESTDIR)$(PLUGINDIR); \
-		rm -f 00_shellexec.so; \
-		rm -f 00_shellexec.cfg; \
-		rm -f 00_shellexec_hint.png
-	rm -f $(DESTDIR)$(bindir)/shellexec
-	-rmdir $(DESTDIR)$(flexdir)
+	ln -sf $(PLUGINDIR)/00_shellexec.so $(DESTDIR)/bin/shellexec

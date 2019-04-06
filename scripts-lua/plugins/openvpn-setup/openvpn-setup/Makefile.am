@@ -9,6 +9,3 @@ install_DATA = \
 	setup_menu_client.lua \
 	setup_menu_server.lua \
 	variables.lua
-
-uninstall-hook:
-	-rmdir $(DESTDIR)$(PLUGINDIR)/openvpn-setup

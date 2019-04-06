@@ -63,6 +63,7 @@ showiframe/Makefile
 stbup/Makefile
 tuxcal/daemon/Makefile
 tuxcal/Makefile
+tuxcal/daemon/Makefile
 tuxcom/Makefile
 tuxmail/daemon/Makefile
 tuxmail/Makefile

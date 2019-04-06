@@ -25,6 +25,3 @@ tuxmail_DATA = \
 
 tuxmail_SCRIPTS = \
 	tuxmail.onreadmail
-
-uninstall-hook:
-	-rmdir $(DESTDIR)$(tuxmaildir)

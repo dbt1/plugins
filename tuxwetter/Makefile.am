@@ -46,6 +46,3 @@ tuxwetter_DATA = \
 	tuxwetter.conf \
 	tuxwetter.mcfg \
 	tuxwetter.png
-
-uninstall-hook:
-	-rmdir $(DESTDIR)$(tuxwetterdir)

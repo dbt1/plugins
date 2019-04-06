@@ -26,6 +26,3 @@ tuxcal_DATA = \
 
 tuxcal_SCRIPTS = \
 	tuxcal.notify
-
-uninstall-hook:
-	-rmdir $(DESTDIR)$(tuxcaldir)
