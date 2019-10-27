@@ -2,24 +2,37 @@ AM_CPPFLAGS =  \
 	@FREETYPE_CFLAGS@ \
 	-I$(top_srcdir)/include
 
-noinst_PROGRAMS = msgbox
+bin_PROGRAMS = shellexec
 
-msgbox_SOURCES = \
-	msgbox.c \
-	gfx.c \
+shellexec_LDADD = \
+	@FREETYPE_LIBS@
+
+shellexec_SOURCES = \
+	shellexec.c \
 	io.c \
-	txtform.c \
 	text.c \
+	gfx.c \
 	fb_display.c \
 	rc_device.c \
 	resize.c \
 	pngw.cpp \
 	png_helper.cpp
 
-msgbox_LDADD = \
-	@FREETYPE_LIBS@
+noinst_LTLIBRARIES = shellexec.la
+
+shellexec_la_LDFLAGS = -rpath $(PLUGINDIR) -module -avoid-version
+
+shellexec_la_SOURCES = \
+	starter.c
 
 install-exec-local:
-	install -d $(DESTDIR)/usr/bin
-	install -m 0755 msgbox $(DESTDIR)/usr/bin/msgbox
+	install -d $(DESTDIR)$(PLUGINDIR)
+	install -d $(DESTDIR)$(CONFIGDIR)
+	$(LIBTOOL) --mode=install install shellexec.la $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec.cfg $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec_hint.png $(DESTDIR)$(PLUGINDIR)
+	install -m 0644 $(srcdir)/shellexec.conf $(DESTDIR)$(CONFIGDIR)
+	install -d $(DESTDIR)$(CONFIGDIR)/flexinc
+	rm -f $(DESTDIR)$(CONFIGDIR)/flexinc/plugin_config.mnu
+	touch $(DESTDIR)$(CONFIGDIR)/flexinc/plugin_config.mnu
 
