@@ -1,83 +1,25 @@
-SUBDIRS =
+AM_CPPFLAGS =  \
+	@FREETYPE_CFLAGS@ \
+	-I$(top_srcdir)/include
 
-if ENABLE_COOLITSCLIMAX
-SUBDIRS += cooliTSclimax
-endif
-if ENABLE_EMMRD
-SUBDIRS += emmrd
-endif
-if ENABLE_FRITZCALLMONITOR
-SUBDIRS += FritzCallMonitor
-endif
-if ENABLE_FRITZINFOMONITOR
-SUBDIRS += FritzInfoMonitor
-endif
-if ENABLE_GETRC
-SUBDIRS += getrc
-endif
-if ENABLE_INPUT
-SUBDIRS += input
-endif
-if ENABLE_LOGOMASK
-SUBDIRS += logomask
-endif
-if ENABLE_LOGOVIEW
-SUBDIRS += logoview
-endif
-if ENABLE_OSCAMMON
-SUBDIRS += oscammon
-endif
-if ENABLE_MSGBOX
-SUBDIRS += msgbox
-endif
-if ENABLE_SATFIND
-SUBDIRS += satfind
-endif
-if ENABLE_SHELLEXEC
-SUBDIRS += shellexec
-endif
-if ENABLE_SHOWIFRAME
-SUBDIRS += showiframe
-endif
-if ENABLE_STBUP
-SUBDIRS += stbup
-endif
-if ENABLE_TUXCAL
-SUBDIRS += tuxcal
-endif
-if ENABLE_TUXCOM
-SUBDIRS += tuxcom
-endif
-if ENABLE_TUXMAIL
-SUBDIRS += tuxmail
-endif
-if ENABLE_TUXWETTER
-SUBDIRS += tuxwetter
-endif
-if ENABLE_VINFO
-SUBDIRS += vinfo
-endif
+bin_PROGRAMS = input
 
-if BOXMODEL_VUPLUS4K
-SUBDIRS += vu-initfb
-SUBDIRS += vu-oled_ctrl
-SUBDIRS += vu-turnoff_power
-endif
-if BOXMODEL_VUDUO
-SUBDIRS += vu-initfb
-SUBDIRS += vu-turnoff_power
-endif
 
-SUBDIRS += \
-	scripts-lua \
-	scripts-sh
+input_SOURCES = \
+	input.c \
+	inputd.c \
+	io.c \
+	text.c \
+	gfx.c \
+	fb_display.c \
+	rc_device.c \
+	resize.c \
+	pngw.cpp \
+	png_helper.cpp
 
-SUBDIRS += data
+input_LDADD = \
+	@FREETYPE_LIBS@
 
-install-data-hook:
-	$(INSTALL) -d $(DESTDIR)$(LUAPLUGINDIR)
-
-uninstall-hook:
-	-rmdir $(DESTDIR)$(GAMESDIR)
-	-rmdir $(DESTDIR)$(PLUGINDIR)
-	-rmdir $(DESTDIR)$(LUAPLUGINDIR)
+install-exec-local:
+	install -d $(DESTDIR)/usr/bin
+	install -m 0755 input $(DESTDIR)/usr/bin/input
