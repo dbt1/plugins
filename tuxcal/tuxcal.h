@@ -4,8 +4,8 @@
  *
  ******************************************************************************/
 
-#define _GNU_SOURCE
 #include "config.h"
+#define _GNU_SOURCE
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -32,6 +32,12 @@
 #include FT_CACHE_H
 #include FT_CACHE_SMALL_BITMAPS_H
 
+#ifndef FB_DEVICE
+#define FB_DEVICE	"/dev/fb/0"
+#endif
+#ifndef FB_DEVICE_FALLBACK
+#define FB_DEVICE_FALLBACK	"/dev/fb0"
+#endif
 #ifndef CONFIGDIR
 #define CONFIGDIR "/var/tuxbox/config"
 #endif
@@ -346,8 +352,8 @@ int WeekNumber( int y, int m, int d );
 int LeapYear(int year);
 
 //----------------------------------------------------
-
 // freetype stuff
+
 #define FONT FONTDIR "/neutrino.ttf"
 // if font is not in usual place, we look here:
 #define FONT2 FONTDIR "/pakenham.ttf"
