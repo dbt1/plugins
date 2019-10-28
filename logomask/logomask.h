@@ -1,8 +1,8 @@
 #ifndef __logomask_H__
+
 #define __logomask_H__
 
 #include <config.h>
-
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -20,6 +20,12 @@
 #include <sys/un.h>
 #include <sys/stat.h>
 
+#ifndef FB_DEVICE
+#define FB_DEVICE	"/dev/fb/0"
+#endif
+#ifndef FB_DEVICE_FALLBACK
+#define FB_DEVICE_FALLBACK	"/dev/fb0"
+#endif
 #ifndef CONFIGDIR
 #define CONFIGDIR "/var/tuxbox/config"
 #endif
@@ -87,9 +93,6 @@
 #ifdef HAVE_ARM_HARDWARE
 #define KEY_FWD					0x0d0
 #endif
-#ifdef HAVE_MIPS_HARDWARE
-#define KEY_FWD					0x0d0
-#endif
 
 // Coolstream
 #define KEY_COOL				0x1a1
@@ -121,4 +124,4 @@ extern unsigned char *lfb, *lbb;
 struct fb_fix_screeninfo fix_screeninfo;
 struct fb_var_screeninfo var_screeninfo;
 
-#endif //__logomask_H__
+#endif
