@@ -20,8 +20,8 @@
 // lots of code is from the tuxmail-project
 
 #include "tuxcal.h"
-#include <fb_device.h>
-#include <rc_device.h>
+#include "rc_device.h"
+//#include <stdio.h>
 
 void read_neutrino_osd_conf(int *Ex,int *Sx,int *Ey, int *Sy)
 {
@@ -346,7 +346,7 @@ int ControlDaemon(int command)
  * GetRCCode
  ******************************************************************************/
 
-#if defined HAVE_COOL_HARDWARE || HAVE_TRIPLEDRAGON || HAVE_SPARK_HARDWARE || defined(HAVE_DUCKBOX_HARDWARE) || HAVE_ARM_HARDWARE || HAVE_MIPS_HARDWARE || HAVE_GENERIC_HARDWARE
+#if defined HAVE_COOL_HARDWARE || HAVE_TRIPLEDRAGON || HAVE_SPARK_HARDWARE || defined(HAVE_DUCKBOX_HARDWARE) || HAVE_ARM_HARDWARE
 int GetRCCode()
 {
 	static int count = 0;
@@ -2686,9 +2686,11 @@ int main ( void )
 	}
 
 	/* open Remote Control */
-	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
-	if (rc == -1)
-		rc = open(RC_DEVICE_FALLBACK, O_RDONLY | O_CLOEXEC);
+	char rc_device[32];
+	get_rc_device(rc_device);
+	printf("rc_device: using %s\n", rc_device);
+
+	rc = open(rc_device, O_RDONLY | O_CLOEXEC);
 	if ( rc == -1 )
 	{
 		perror ( "TuxCal <open remote control>" );
