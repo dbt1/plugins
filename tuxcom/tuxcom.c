@@ -1340,6 +1340,7 @@ int main()
 										nok = 1;
 									}
 								}
+								/* fall through */
 								default:
 									rccode = 0;
 									nok = 1;
@@ -1540,6 +1541,7 @@ int main()
 									}
 								}
 							}
+							/* fall through */
 							default:
 								rccode = 0;
 						}
@@ -1610,6 +1612,7 @@ int main()
 									SetSelected(curframe,szDir);
 								}
 							}
+							/* fall through */
 							default:
 								rccode = 0;
 						}
@@ -1637,6 +1640,7 @@ int main()
 									FillDir(  curframe,SELECT_NOCHANGE);
 								}
 							}
+							/* fall through */
 							default:
 								rccode = 0;
 						}
