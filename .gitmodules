@@ -43,6 +43,9 @@
 [submodule "scripts-lua"]
 	path = scripts-lua
 	url = ../plugin-scripts-lua.git
+[submodule "mediathek"]
+	path = scripts-lua/plugins/mediathek
+	url = ../plugin-scripts-lua-neutrino-mediathek.git
 [submodule "cooliTSclimax"]
 	path = cooliTSclimax
 	url = ../plugin-cooliTSclimax.git
