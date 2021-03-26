@@ -362,6 +362,7 @@ scripts-lua/plugins/openvpn-setup/openvpn-setup/Makefile
 scripts-lua/plugins/rss/Makefile
 scripts-lua/plugins/spiegel-tv-doc/Makefile
 scripts-lua/plugins/stb_startup/Makefile
+scripts-lua/plugins/stb_startup-ddt/Makefile
 scripts-lua/plugins/tierwelt-tv/Makefile
 scripts-lua/plugins/userbouquets/Makefile
 scripts-lua/plugins/webradio/Makefile
