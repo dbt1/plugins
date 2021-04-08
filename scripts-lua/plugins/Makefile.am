@@ -50,7 +50,11 @@ if ENABLE_SPIEGEL_TV_DOC
 SUBDIRS += spiegel-tv-doc
 endif
 if ENABLE_STB_STARTUP
+if BOXMODEL_VUPLUS_ALL
+SUBDIRS += stb_startup-ddt
+else
 SUBDIRS += stb_startup
+endif
 endif
 if ENABLE_TIERWELT_TV
 SUBDIRS += tierwelt-tv
