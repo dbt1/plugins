@@ -27,6 +27,7 @@
 #include <config.h>
 #include "tuxcom.h"
 #include "rc_device.h"
+#include <fb_device.h>
 
 #define DEFAULT_XRES 1280
 #define DEFAULT_YRES 720
@@ -39,7 +40,7 @@ static int sync_blitter = 0;
  * GetRCCode  (Code from Tuxmail)
  ******************************************************************************/
 
-#if defined HAVE_CST_HARDWARE || HAVE_TRIPLEDRAGON || HAVE_SPARK_HARDWARE || defined(HAVE_DUCKBOX_HARDWARE) || HAVE_ARM_HARDWARE
+#if defined HAVE_CST_HARDWARE || HAVE_TRIPLEDRAGON || HAVE_SPARK_HARDWARE || defined(HAVE_DUCKBOX_HARDWARE) || HAVE_ARM_HARDWARE || HAVE_MIPS_HARDWARE || HAVE_GENERIC_HARDWARE
 int GetRCCode()
 {
 	static int count = 0;
@@ -779,10 +780,10 @@ void SetLanguage()
 
 void read_neutrino_osd_conf(int *Ex,int *Sx,int *Ey, int *Sy)
 {
-	const char *filename="/var/tuxbox/config/neutrino.conf";
-	const char spres[][4]={"","crt","lcd", "a", "b"};
+	const char *filename=CONFIGDIR"/neutrino.conf";
+	const char spres[][4]={"","a","b"};
 	char sstr[4][32];
-	int step=0, pres=-1, resolution=-1, loop, *sptr[4]={Ex, Sx, Ey, Sy};
+	int pres=-1, resolution=-1, loop, *sptr[4]={Ex, Sx, Ey, Sy};
 	char *buffer;
 	size_t len;
 	ssize_t read;
@@ -793,8 +794,6 @@ void read_neutrino_osd_conf(int *Ex,int *Sx,int *Ey, int *Sy)
 		buffer=NULL;
 		len = 0;
 		while ((read = getline(&buffer, &len, fd)) != -1){
-			if(strstr(buffer, "screen_EndX_a"))
-				step = 2;
 			sscanf(buffer, "screen_preset=%d", &pres);
 			sscanf(buffer, "osd_resolution=%d", &resolution);
 		}
@@ -802,7 +801,6 @@ void read_neutrino_osd_conf(int *Ex,int *Sx,int *Ey, int *Sy)
 			free(buffer);
 		rewind(fd);
 		++pres;
-		pres += step;
 		if (resolution == -1)
 		{
 			sprintf(sstr[0], "screen_EndX_%s=%%d", spres[pres]);
@@ -908,7 +906,7 @@ int main()
 	/* open Remote Control */
 	char rc_device[32];
 	get_rc_device(rc_device);
-	printf("rc_device: using %s\n", rc_device);
+	//printf("rc_device: using %s\n", rc_device);
 
 	rc = open(rc_device, O_RDONLY | O_CLOEXEC);
 	if(rc == -1) {
@@ -5347,10 +5345,10 @@ void ReadSettings()
 	finfo[LEFTFRAME].sort = SORT_UP;
 	finfo[RIGHTFRAME].sort = SORT_UP;
 
-	fp = fopen( CONFIGDIR "/tuxcom.conf", "r" );
+	fp = fopen( CONFIGDIR "/tuxcom/tuxcom.conf", "r" );
 	if ( !fp )
 	{
-		printf("tuxcom: could not open " CONFIGDIR "/tuxcom.conf !!!\n");
+		printf("tuxcom: could not open " CONFIGDIR "/tuxcom/tuxcom.conf !!!\n");
 	}
 	else
 	{
@@ -5474,10 +5472,10 @@ void WriteSettings()
 	FILE *fp;
 
 
-	fp = fopen( CONFIGDIR "/tuxcom.conf", "w" );
+	fp = fopen( CONFIGDIR "/tuxcom/tuxcom.conf", "w" );
 	if ( !fp )
 	{
-		printf("tuxcom: could not open " CONFIGDIR "/tuxcom.conf !!!\n");
+		printf("tuxcom: could not open " CONFIGDIR "/tuxcom/tuxcom.conf !!!\n");
 	}
 	else
 	{

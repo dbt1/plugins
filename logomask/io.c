@@ -4,7 +4,6 @@
 #include <errno.h>
 #include <locale.h>
 #include <fcntl.h>
-#include <stdio.h>
 #include <ctype.h>
 #include <time.h>
 #include <stdlib.h>

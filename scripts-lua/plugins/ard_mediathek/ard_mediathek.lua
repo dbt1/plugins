@@ -1220,7 +1220,9 @@ function getStream(_id, dlmode)
 			if break2 == true then break end
 		end
 	end
-	if debugmode >= 1 then printf("#####[ard_mediathek] tmpId: %d, id1: %d, id2: %d", tmpId, id1, id2) end
+	if debugmode >= 1 then
+		printf("#####[ard_mediathek] tmpId: %d, id1: %d, id2: %d", tmpId, id1, id2)
+	end
 	local title    = listContent[id1].title
 	local headline = listContent[id1].streams[id2].headline
 	local infoline = listContent[id1].prev_wd.." "..listContent[id1].prev_date..", "..listContent[id1].date.." ("..selectedChannel..")"
@@ -1240,8 +1242,9 @@ function getStream(_id, dlmode)
 	local s = read_file(tmpData)
 
 	local j_table = json:decode(s)
-	if debugmode == 2 then print("#####[ard_mediathek] Inhalt von j_table:")
-		tprint(j_table,0) 
+	if debugmode == 2 then
+		print("#####[ard_mediathek] Inhalt von j_table:")
+		tprint(j_table,0)
 		print("#####[ard_mediathek] Ende von j_table")
 	end
 	local j_type = j_table._type
@@ -1324,7 +1327,8 @@ function getStream(_id, dlmode)
 
 		local streamBreak = false
 		if j_mediaArray ~= nil then
-			if debugmode == 2 then print("#####[ard_mediathek] Inhalt von j_mediaArray:")
+			if debugmode == 2 then
+				print("#####[ard_mediathek] Inhalt von j_mediaArray:")
 				tprint(j_mediaArray,0)
 				print("#####[ard_mediathek] Ende von j_mediaArray")
 			end
@@ -1601,7 +1605,7 @@ function loadConfig()
 	conf.language = config:getString("language", "DE")
 	setLangStrings(conf.language)
 	conf.streamQuality = config:getInt32("streamQuality", 3)
-	local tmp = config:getBool( "auto", true)
+	local tmp = config:getBool( "auto", false)
 	if hdsAvailable ~= true then
 		if tmp == true then tmp = false end
 	end

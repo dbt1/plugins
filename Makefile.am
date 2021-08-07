@@ -6,9 +6,6 @@ endif
 if ENABLE_COOLITSCLIMAX
 SUBDIRS += cooliTSclimax
 endif
-if ENABLE_EMMRD
-SUBDIRS += emmrd
-endif
 if ENABLE_FRITZCALLMONITOR
 SUBDIRS += FritzCallMonitor
 endif
@@ -26,9 +23,6 @@ SUBDIRS += logomask
 endif
 if ENABLE_LOGOVIEW
 SUBDIRS += logoview
-endif
-if ENABLE_OSCAMMON
-SUBDIRS += oscammon
 endif
 if ENABLE_MSGBOX
 SUBDIRS += msgbox
@@ -56,9 +50,6 @@ SUBDIRS += tuxmail
 endif
 if ENABLE_TUXWETTER
 SUBDIRS += tuxwetter
-endif
-if ENABLE_VINFO
-SUBDIRS += vinfo
 endif
 
 if BOXMODEL_VUPLUS_ALL

@@ -153,4 +153,3 @@ int tmo=timeout;
 	}
 	return Translate(rccode);
 }
-
