@@ -44,6 +44,7 @@ install-data-hook:
 		mv -f shellexec.so 00_shellexec.so; \
 		mv -f shellexec.cfg 00_shellexec.cfg; \
 		mv -f shellexec_hint.png 00_shellexec_hint.png
+	install -d $(DESTDIR)$(bindir)
 	ln -sf $(PLUGINDIR)/00_shellexec.so $(DESTDIR)$(bindir)/shellexec
 
 uninstall-hook:
