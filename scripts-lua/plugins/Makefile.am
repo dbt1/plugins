@@ -24,9 +24,7 @@ if ENABLE_FREEZE
 SUBDIRS += freeze
 endif
 if ENABLE_FRITZINFOMONITOR_SETUP
-if ENABLE_FRITZINFOMONITOR
 SUBDIRS += FritzInfoMonitor-setup
-endif
 endif
 if ENABLE_HEIZOELPREISE
 SUBDIRS += heizoelpreise

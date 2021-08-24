@@ -47,18 +47,39 @@ AC_ARG_ENABLE(coolitsclimax,
 	[enable_coolitsclimax="no"])
 AM_CONDITIONAL(ENABLE_COOLITSCLIMAX, test "$enable_coolitsclimax" = "yes")
 
+## fritz tools
+AC_ARG_ENABLE(fritztools,
+	AS_HELP_STRING([--enable-fritztools], [enable fritztools @<:@default=no@:>@]),
+	[enable_fritztools="$enableval"],
+	[enable_fritztools="no"])
+AM_CONDITIONAL(ENABLE_FRITZTOOLS, test "$enable_fritztools" = "yes")
+
 AC_ARG_ENABLE(fritzcallmonitor,
 	AS_HELP_STRING([--enable-fritzcallmonitor], [enable fritzcallmonitor @<:@default=no@:>@]),
 	[enable_fritzcallmonitor="$enableval"],
 	[enable_fritzcallmonitor="no"])
-AM_CONDITIONAL(ENABLE_FRITZCALLMONITOR, test "$enable_fritzcallmonitor" = "yes")
 
 AC_ARG_ENABLE(fritzinfomonitor,
 	AS_HELP_STRING([--enable-fritzinfomonitor], [enable fritzinfomonitor @<:@default=no@:>@]),
 	[enable_fritzinfomonitor="$enableval"],
 	[enable_fritzinfomonitor="no"])
-AM_CONDITIONAL(ENABLE_FRITZINFOMONITOR, test "$enable_fritzinfomonitor" = "yes")
 
+AC_ARG_ENABLE(fritzinfomonitor-setup,
+	AS_HELP_STRING([--enable-fritzinfomonitor-setup], [enable fritzinfomonitor-setup @<:@default=no@:>@]),
+	[enable_fritzinfomonitor_setup="$enableval"],
+	[enable_fritzinfomonitor_setup="no"])
+
+if test "$enable_fritztools" = "yes"; then
+	enable_fritzcallmonitor=yes
+	enable_fritzinfomonitor=yes
+	enable_fritzinfomonitor_setup=yes
+fi
+
+AM_CONDITIONAL(ENABLE_FRITZCALLMONITOR, test "$enable_fritzcallmonitor" = "yes")
+AM_CONDITIONAL(ENABLE_FRITZINFOMONITOR, test "$enable_fritzinfomonitor" = "yes")
+AM_CONDITIONAL(ENABLE_FRITZINFOMONITOR_SETUP, test "$enable_fritzinfomonitor_setup" = "yes")
+
+# tools
 AC_ARG_ENABLE(getrc,
 	AS_HELP_STRING([--enable-getrc], [enable getrc @<:@default=no@:>@]),
 	[enable_getrc="$enableval"],
@@ -141,6 +162,7 @@ AC_ARG_ENABLE(tuxwetter,
 	[enable_tuxwetter="no"])
 AM_CONDITIONAL(ENABLE_TUXWETTER, test "$enable_tuxwetter" = "yes")
 
+# lua and other scripts
 AC_ARG_ENABLE(2webtvxml,
 	AS_HELP_STRING([--enable-2webtvxml], [enable 2webTVxml @<:@default=no@:>@]),
 	[enable_2webtvxml="$enableval"],
@@ -182,12 +204,6 @@ AC_ARG_ENABLE(freeze,
 	[enable_freeze="$enableval"],
 	[enable_freeze="no"])
 AM_CONDITIONAL(ENABLE_FREEZE, test "$enable_freeze" = "yes")
-
-AC_ARG_ENABLE(fritzinfomonitor-setup,
-	AS_HELP_STRING([--enable-fritzinfomonitor-setup], [enable fritzinfomonitor-setup @<:@default=no@:>@]),
-	[enable_fritzinfomonitor_setup="$enableval"],
-	[enable_fritzinfomonitor_setup="no"])
-AM_CONDITIONAL(ENABLE_FRITZINFOMONITOR_SETUP, test "$enable_fritzinfomonitor_setup" = "yes")
 
 AC_ARG_ENABLE(heizoelpreise,
 	AS_HELP_STRING([--enable-heizoelpreise], [enable heizoelpreise @<:@default=no@:>@]),
@@ -317,8 +333,8 @@ AM_CONDITIONAL(ENABLE_SMARTHOMEINFO, test "$enable_smarthomeinfo" = "yes")
 
 AC_ARG_ENABLE(wortraten,
 	AS_HELP_STRING([--enable-wortraten], [enable wortraten @<:@default=no@:>@]),
-	[enable_wortraten="no"],
-	[enable_wortraten="$enableval"])
+	[enable_wortraten="$enableval"],
+	[enable_wortraten="no"])
 AM_CONDITIONAL(ENABLE_WORTRATEN, test "$enable_wortraten" = "yes")
 
 AC_CONFIG_FILES([

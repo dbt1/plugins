@@ -67,7 +67,7 @@ SUBDIRS += \
 SUBDIRS += data
 
 install-data-hook:
-	$(INSTALL) -d $(DESTDIR)$(LUAPLUGINDIR)
+# 	$(INSTALL) -d $(DESTDIR)$(LUAPLUGINDIR)
 
 uninstall-hook:
 	-rmdir $(DESTDIR)$(GAMESDIR)
